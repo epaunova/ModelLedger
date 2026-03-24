@@ -2,7 +2,7 @@
 
 **Open Standard for Verifiable ML Model Bills of Materials**
 
-ModelLedger defines a cryptographic provenance standard for machine learning models. A model publisher signs an ML-SBOM document recording all components that entered the model — datasets, base weights, fine-tuning corpora, and software libraries. Any researcher, auditor, or downstream user can verify the full component chain without trusting any intermediary.
+ModelLedger defines a cryptographic provenance standard for machine learning models. A model publisher signs an ML-SBOM document recording all components that entered the model datasets, base weights, fine-tuning corpora, and software libraries. Any researcher, auditor, or downstream user can verify the full component chain without trusting any intermediary.
 
 This repository contains:
 
@@ -15,7 +15,7 @@ This repository contains:
 
 ## The Problem
 
-ML models are built from layers of components — training datasets, pre-trained weights, fine-tuning corpora, and software libraries — that circulate across repositories, registries, and distribution channels. When a model is published or deployed, the provenance of these components is rarely recorded in a verifiable, machine-readable form.
+ML models are built from layers of components training datasets, pre-trained weights, fine-tuning corpora, and software libraries that circulate across repositories, registries, and distribution channels. When a model is published or deployed, the provenance of these components is rarely recorded in a verifiable, machine-readable form.
 
 Existing SBOM formats (SPDX, CycloneDX) address software packages well but have no fields for ML-specific component types: dataset splits, weight checkpoints, fine-tuning proportions, or model adaptation layers.
 
@@ -51,5 +51,5 @@ Specification and documentation: CC-BY 4.0.
 
 ## Contact
 
-Eva Paunova — eva@modelledger.dev
+Eva Paunova 
 GitHub: https://github.com/epaunova/ModelLedger
