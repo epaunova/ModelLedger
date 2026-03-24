@@ -1,0 +1,110 @@
+{
+  "description": "ModelLedger conformance test vectors v0.1",
+  "spec_version": "0.1",
+  "vectors": [
+    {
+      "id": "TV-001",
+      "description": "Minimal valid ML-SBOM with one dataset component",
+      "input": {
+        "name": "TestModel",
+        "version": "1.0.0",
+        "model_uri": "https://example.org/model.tar.gz",
+        "model_hash": "sha256:2aaf3d7eed0d9a72e59117a085411814",
+        "licence": "Apache-2.0",
+        "components": [
+          {
+            "type": "dataset",
+            "name": "ExampleDataset",
+            "version": "2024-01",
+            "source_uri": "https://example.org/dataset.tar.gz",
+            "content_hash": "sha256:dd6c918a4a49b0a3d84e7db28c3e9b5a",
+            "licence": "CC-BY-4.0",
+            "proportion": 1.0
+          }
+        ]
+      },
+      "expected": "VALID"
+    },
+    {
+      "id": "TV-002",
+      "description": "Tampered name must fail verification",
+      "tamper": "name",
+      "tamper_value": "Injected Model Name",
+      "expected": "INVALID"
+    },
+    {
+      "id": "TV-003",
+      "description": "Tampered component content_hash must fail",
+      "tamper": "components[0].content_hash",
+      "tamper_value": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "expected": "INVALID"
+    },
+    {
+      "id": "TV-004",
+      "description": "Tampered component licence must fail",
+      "tamper": "components[0].licence",
+      "tamper_value": "GPL-3.0-only",
+      "expected": "INVALID"
+    },
+    {
+      "id": "TV-005",
+      "description": "Tampered proportion must fail",
+      "tamper": "components[0].proportion",
+      "tamper_value": 0.01,
+      "expected": "INVALID"
+    },
+    {
+      "id": "TV-006",
+      "description": "Added component after signing must fail",
+      "tamper": "add_component",
+      "expected": "INVALID"
+    },
+    {
+      "id": "TV-007",
+      "description": "ML-SBOM with DataLedger manifest reference",
+      "input": {
+        "name": "ModelWithDataLedger",
+        "version": "1.0.0",
+        "model_uri": "https://example.org/model2.tar.gz",
+        "model_hash": "sha256:abc123",
+        "licence": "MIT",
+        "components": [
+          {
+            "type": "dataset",
+            "name": "SignedDataset",
+            "version": "1.0.0",
+            "source_uri": "https://example.org/signed-dataset.tar.gz",
+            "content_hash": "sha256:def456",
+            "licence": "CC-BY-4.0",
+            "proportion": 0.6,
+            "dataledger_manifest_id": "52a3b04a-d56d-4598-9d05-e9fa3258de83"
+          }
+        ]
+      },
+      "expected": "VALID"
+    },
+    {
+      "id": "TV-008",
+      "description": "ML-SBOM with software library component and SPDX reference",
+      "input": {
+        "name": "ModelWithSPDX",
+        "version": "1.0.0",
+        "model_uri": "https://example.org/model3.tar.gz",
+        "model_hash": "sha256:ghi789",
+        "licence": "Apache-2.0",
+        "components": [
+          {
+            "type": "software_library",
+            "name": "transformers",
+            "version": "4.40.0",
+            "source_uri": "https://pypi.org/project/transformers/4.40.0/",
+            "content_hash": "sha256:jkl012",
+            "licence": "Apache-2.0",
+            "spdx_id": "SPDXRef-transformers-4.40.0"
+          }
+        ]
+      },
+      "expected": "VALID"
+    }
+  ]
+}
